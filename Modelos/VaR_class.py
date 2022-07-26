@@ -47,7 +47,7 @@ class VaR(object):
         VaR=pd.DataFrame(np.repeat(stats.norm.ppf(significancia,loc=Media,scale=Sd),len(test)),columns=[f'VaR_{significancia}'])
         return VaR
         
-    def garch(self,train,test,in_sample=False,p=1,q=1):
+    def garch(self,train,test,in_sample=False,p=1,q=1,dist="skewt"):
         
         '''
         Calcula el VaR asumiendo un distribución normal pero con una varianza que sigue un proceso GARCH.
@@ -69,7 +69,7 @@ class VaR(object):
         else:
             rt=pd.concat([train,test])
         
-        am = arch_model(rt, vol="Garch", p=p,o=0, q=q,dist="skewt")
+        am = arch_model(rt, vol="Garch", p=p,o=0, q=q,dist=dist)
         res = am.fit(disp="off", last_obs=train.index[-1])
         forecasts = res.forecast(start=test.index[0], reindex=False)
 
