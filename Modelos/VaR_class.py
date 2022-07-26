@@ -186,12 +186,6 @@ class VaR(object):
 
         def quantile_loss(q,y_true,y_pred):
 
-            """
-            q -- quantile level
-            y_true -- true values
-            y_pred -- predicted values
-
-            """
             diff = (y_true - y_pred)
             mask = y_true >= y_pred
             mask_ = y_true < y_pred
